@@ -1,59 +1,262 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# JWT Authentication pada REST API Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Deskripsi 
 
-## About Laravel
+Project ini merupakan implementasi **JWT (JSON Web Token)** pada REST API menggunakan Laravel.
+JWT digunakan untuk mengamankan endpoint API sehingga hanya user yang memiliki token yang dapat mengakses endpoint tertentu.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tujuan
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* Memahami konsep autentikasi berbasis token (JWT)
+* Mengimplementasikan JWT pada Laravel
+* Mengamankan endpoint API sesuai standar REST
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Teknologi yang Digunakan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* PHP (Laravel Framework)
+* JWT Auth (`tymon/jwt-auth`)
+* MySQL (Database)
+* Postman (Testing API)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 📂 Struktur Project (Sederhana)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```id="0zq1xs"
+app/
+ ├── Http/
+ │   ├── Controllers/
+ │   │   ├── Api/
+ │   │   │   ├── AuthController.php
+ │   │   │   ├── ProductController.php
+ │   ├── Middleware/
+ │       ├── JwtMiddleware.php
+ ├── Models/
+ │   ├── User.php
+ │   ├── Product.php
+routes/
+ ├── api.php
+```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Konsep JWT
 
-## Contributing
+JWT (JSON Web Token) adalah token yang digunakan untuk autentikasi user.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Alur:
 
-## Code of Conduct
+1. User login
+2. Server menghasilkan token
+3. Token dikirim ke client
+4. Client mengakses API dengan header:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```id="bggk33"
+Authorization: Bearer <token>
+```
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🔄 Alur Sistem
 
-## License
+```id="gjqehh"
+User → Login → Dapat Token → Akses API → Validasi Token → Response
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## Instalasi
+
+1. Clone repository
+
+```id="93vg8t"
+git clone https://github.com/username/jwt-auth-api.git
+```
+
+2. Install dependency
+
+```id="sptwcb"
+composer install
+```
+
+3. Setup environment
+
+```id="5h23l3"
+cp .env.example .env
+```
+
+4. Generate key
+
+```id="p7tghg"
+php artisan key:generate
+```
+
+5. Generate JWT secret
+
+```id="izx6c1"
+php artisan jwt:secret
+```
+
+6. Migrasi database
+
+```id="q1dy5p"
+php artisan migrate
+```
+
+7. Jalankan server
+
+```id="45yevt"
+php artisan serve
+```
+
+---
+
+## Endpoint Authentication
+
+### 🔹 Register
+
+**POST** `/api/register`
+
+```json id="o33q4c"
+{
+  "name": "Azzahra",
+  "email": "azzah@gmail.com",
+  "password": "123456"
+}
+```
+
+---
+
+### 🔹 Login
+
+**POST** `/api/login`
+
+Response:
+
+```json id="4sffk3"
+{
+  "status": true,
+  "token": "jwt_token"
+}
+```
+
+---
+
+## Proteksi Endpoint
+
+### NON-SAFE METHOD (Wajib Token)
+
+| Method | Endpoint           |
+| ------ | ------------------ |
+| POST   | /api/products      |
+| PUT    | /api/products/{id} |
+| DELETE | /api/products/{id} |
+
+---
+
+## Testing API (Postman)
+
+### 1. Login
+
+* Endpoint: `/api/login`
+* Ambil token
+
+---
+
+### 2. Gunakan Token
+
+Tambahkan di header:
+
+```id="3j7xzf"
+Authorization: Bearer jwt_token
+```
+
+---
+
+### 3. Akses Endpoint Protected
+
+Contoh:
+
+```id="7x3nqk"
+POST /api/products
+```
+
+---
+
+## Middleware
+
+Menggunakan middleware:
+
+```id="a1fdlu"
+jwt.verify
+```
+
+Fungsi:
+
+* Memvalidasi token JWT
+* Menolak akses jika token tidak valid
+
+---
+
+## Contoh Response
+
+### GET Products
+
+```json id="bdyh3v"
+[]
+```
+
+atau
+
+```json id="v2z1t2"
+[
+  {
+    "id": 1,
+    "name": "Handphone",
+    "price": 15000000
+  }
+]
+```
+
+---
+
+## ⚠️ Error yang Pernah Ditemui
+
+### ❌ 404 Not Found
+
+Penyebab:
+
+* Route belum dibuat
+
+---
+
+### ❌ Mass Assignment Error
+
+Penyebab:
+
+* Field belum dimasukkan ke `$fillable`
+
+---
+
+### ❌ Unauthorized
+
+Penyebab:
+
+* Token tidak ada / salah
+
+---
+
+## Kesimpulan
+
+* JWT berhasil diimplementasikan pada REST API Laravel
+* Endpoint POST, PUT, DELETE telah diamankan
+* Endpoint GET tetap dapat diakses tanpa token
+* Sistem autentikasi berjalan dengan baik
+
+---
+
+## 👨‍💻 Author
+
+**Azzahra Putri**
