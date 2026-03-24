@@ -247,7 +247,6 @@ Penyebab:
 * JWT berhasil diimplementasikan pada REST API Laravel
 * Endpoint POST, PUT, DELETE telah diamankan
 * Endpoint GET tetap dapat diakses tanpa token
-* Sistem autentikasi berjalan dengan baik
 
 ---
 
@@ -257,4 +256,3 @@ Penyebab:
 =======
 # jwt-auth
 Implementasi JWT Authentication pada Laravel menggunakan package tymon/jwt-auth
->>>>>>> 2e04663c6cc638a54d949c04a83aeb2c22d2fec0
