@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # JWT Authentication pada REST API Laravel
 
 ## Deskripsi 
@@ -260,3 +261,7 @@ Penyebab:
 ## 👨‍💻 Author
 
 **Azzahra Putri**
+=======
+# jwt-auth
+Implementasi JWT Authentication pada Laravel menggunakan package tymon/jwt-auth
+>>>>>>> 2e04663c6cc638a54d949c04a83aeb2c22d2fec0
