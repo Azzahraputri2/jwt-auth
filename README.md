@@ -205,12 +205,6 @@ Fungsi:
 
 ### GET Products
 
-```json id="bdyh3v"
-[]
-```
-
-atau
-
 ```json id="v2z1t2"
 [
   {
