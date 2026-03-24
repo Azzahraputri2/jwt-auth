@@ -249,10 +249,3 @@ Penyebab:
 * Endpoint GET tetap dapat diakses tanpa token
 
 ---
-
-## 👨‍💻 Author
-
-**Azzahra Putri**
-=======
-# jwt-auth
-Implementasi JWT Authentication pada Laravel menggunakan package tymon/jwt-auth
