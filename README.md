@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # JWT Authentication pada REST API Laravel
 
 ## Deskripsi 
